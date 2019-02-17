@@ -25,11 +25,10 @@ const generatePolicy: (principalId: string, effect: any, resource: any) => Custo
 
 // Reusable Authorizer function, set on `authorizer` field in serverless.yml
 export const auth: CustomAuthorizerHandler = (event, _, callback) => {
-  console.log('event 2', event);
   if (!event.authorizationToken) {
     return callback('Unauthorized');
   }
-
+  
   const tokenParts = event.authorizationToken.split(' ');
   const tokenValue = tokenParts[1];
 
