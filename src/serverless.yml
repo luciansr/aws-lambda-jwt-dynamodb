@@ -16,7 +16,7 @@ functions:
     handler: handler.auth
     cors: true
   publicEndpoint:
-    handler: handler.publicEndpoint
+    handler: public-handler.publicEndpoint
     events:
       - http:
           path: api/public
@@ -32,12 +32,11 @@ functions:
           authorizer: auth
           cors: true
   hello:
-    handler: handler.hello
+    handler: public-handler.hello
     events:
       - http:
-          path: api/private
+          path: api/hello
           method: get
-          path: hello
 
 resources:
   Resources:

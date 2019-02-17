@@ -4,16 +4,6 @@ import * as jwt from 'jsonwebtoken';
 const SECRET = 'your-256-bit-semyasdiaushcret';
 const AUDIENCE = 'AUDIENCE';
 
-export const hello: APIGatewayProxyHandler = async (event, _) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless Webpack (Typescript) v1.0! Your function executed successfully!',
-      // input: event,
-    }),
-  };
-}
-
 // Policy helper function
 const generatePolicy: (principalId: string, effect: any, resource: any) => CustomAuthorizerResult = (principalId, effect, resource) => {
   const authResponse: CustomAuthorizerResult = <CustomAuthorizerResult>{};
@@ -70,21 +60,12 @@ export const auth: CustomAuthorizerHandler = (event, _, callback) => {
 }
 
 
-export const privateEndpoint: APIGatewayProxyHandler = async (event, context) => {
+export const privateEndpoint: APIGatewayProxyHandler = async (_, __) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Private Endpoint'
-    }),
-  };
-}
-
-
-export const publicEndpoint: APIGatewayProxyHandler = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Public Endpoint'
+      message: 'Private Endpoint',
+      // input: event,
     }),
   };
 }
