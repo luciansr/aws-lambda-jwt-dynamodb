@@ -8,22 +8,30 @@ plugins:
 
 provider:
   name: aws
+  memorySize: 128
   runtime: nodejs8.10
   region: us-east-1
 
 functions:
   auth:
-    handler: handler.auth
+    handler: handlers/auth/authorizer-handler.auth
     cors: true
+  jwtTokenGenerator:
+    handler: handlers/auth/jwt-handler.getToken
+    events:
+      - http:
+          path: /auth/token
+          method: post
+          cors: true
   publicEndpoint:
-    handler: public-handler.publicEndpoint
+    handler: handlers/public-handler.publicEndpoint
     events:
       - http:
           path: api/public
           method: post
           cors: true
   privateEndpoint:
-    handler: handler.privateEndpoint
+    handler: handlers/private-handler.privateEndpoint
     events:
       - http:
           path: api/private
@@ -32,10 +40,16 @@ functions:
           authorizer: auth
           cors: true
   hello:
-    handler: public-handler.hello
+    handler: handlers/public-handler.hello
     events:
       - http:
           path: api/hello
+          method: get
+  hello-single:
+    handler: handlers/single-handler.hello
+    events:
+      - http:
+          path: api/single
           method: get
 
 resources:

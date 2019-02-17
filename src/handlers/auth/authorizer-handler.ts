@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler, CustomAuthorizerHandler, CustomAuthorizerResult } from 'aws-lambda';
+import { CustomAuthorizerHandler, CustomAuthorizerResult } from 'aws-lambda';
 import * as jwt from 'jsonwebtoken';
 
 const SECRET = 'your-256-bit-semyasdiaushcret';
@@ -25,7 +25,7 @@ const generatePolicy: (principalId: string, effect: any, resource: any) => Custo
 
 // Reusable Authorizer function, set on `authorizer` field in serverless.yml
 export const auth: CustomAuthorizerHandler = (event, _, callback) => {
-  console.log('event', event);
+  console.log('event 2', event);
   if (!event.authorizationToken) {
     return callback('Unauthorized');
   }
@@ -57,15 +57,4 @@ export const auth: CustomAuthorizerHandler = (event, _, callback) => {
     console.log('catch error. Invalid token', err);
     return callback('Unauthorized');
   }
-}
-
-
-export const privateEndpoint: APIGatewayProxyHandler = async (_, __) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Private Endpoint',
-      // input: event,
-    }),
-  };
 }

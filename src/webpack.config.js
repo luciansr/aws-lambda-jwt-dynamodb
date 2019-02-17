@@ -9,6 +9,10 @@ Object.keys(slsw.lib.entries).forEach(
 
 module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
+  optimization: {
+		// We no not want to minimize our code.
+		minimize: false
+	},
   entry: entries,
   devtool: 'source-map',
   resolve: {
