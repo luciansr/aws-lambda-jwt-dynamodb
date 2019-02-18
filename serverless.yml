@@ -15,24 +15,24 @@ provider:
 
 functions:
   auth:
-    handler: handlers/auth/authorizer-handler.auth
+    handler: src/handlers/auth/authorizer-handler.auth
     cors: true
   jwtTokenGenerator:
-    handler: handlers/auth/jwt-handler.getToken
+    handler: src/handlers/auth/jwt-handler.getToken
     events:
       - http:
           path: auth/token
           method: post
           cors: true
   publicEndpoint:
-    handler: handlers/public-handler.publicEndpoint
+    handler: src/handlers/public-handler.publicEndpoint
     events:
       - http:
           path: api/public
           method: post
           cors: true
   privateEndpoint:
-    handler: handlers/private-handler.privateEndpoint
+    handler: src/handlers/private-handler.privateEndpoint
     events:
       - http:
           path: api/private
@@ -41,13 +41,13 @@ functions:
           authorizer: auth
           cors: true
   hello:
-    handler: handlers/public-handler.hello
+    handler: src/handlers/public-handler.hello
     events:
       - http:
           path: api/hello
           method: get
   hello-single:
-    handler: handlers/single-handler.hello
+    handler: src/handlers/single-handler.hello
     events:
       - http:
           path: api/single
